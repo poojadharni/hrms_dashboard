@@ -1,0 +1,14 @@
+{
+ "db_name": "_15d0c60a4ede5351",
+ "db_password": "jPJW7wL3Mo7UrHsq",
+ "db_type": "mariadb",
+ "db_user": "_15d0c60a4ede5351",
+ "developer_mode":1,
+ "ignore_csrf":1,
+ "domains": [
+  "cbio.quantumberg.com"
+ ],
+ "encryption_key": "RfouMUn-K-sXUAtoAxD4xzyTBpV1BPxmWmyhmOHH22Y=",
+ "host_name": "https://cbio.quantumberg.com",
+ "maintenance_mode": 0
+}
