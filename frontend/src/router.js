@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createMemoryHistory } from 'vue-router'
 
 const routes = [
   {
@@ -8,8 +8,8 @@ const routes = [
   },
 ]
 
-let router = createRouter({
-  history: createWebHistory('/hrms_dashboard'),
+const router = createRouter({
+  history: createMemoryHistory(),
   routes,
 })
 

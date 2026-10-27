@@ -1,49 +1,156 @@
 import { defineConfig } from 'vite'
+
 import vue from '@vitejs/plugin-vue'
+
 import path from 'path'
-import { getProxyOptions } from 'frappe-ui/src/utils/vite-dev-server'
-import { webserver_port } from '../../../sites/common_site_config.json'
+
+import {
+  getProxyOptions
+} from 'frappe-ui/src/utils/vite-dev-server'
+
+import {
+  webserver_port
+} from '../../../sites/common_site_config.json'
+
 
 export default defineConfig({
+
+  /*
+   * --------------------------------------------------
+   * BASE URL
+   * --------------------------------------------------
+   */
+
   base:
     process.env.NODE_ENV === 'production'
       ? '/assets/hrms_dashboard/frontend/'
       : '/',
 
-  plugins: [vue()],
+
+  /*
+   * --------------------------------------------------
+   * PLUGINS
+   * --------------------------------------------------
+   */
+
+  plugins: [
+    vue()
+  ],
+
+
+  /*
+   * --------------------------------------------------
+   * DEVELOPMENT SERVER
+   * --------------------------------------------------
+   */
 
   server: {
+
     port: 8080,
-    proxy: getProxyOptions({ port: webserver_port }),
+
+    proxy:
+      getProxyOptions({
+        port: webserver_port
+      }),
+
   },
+
+
+  /*
+   * --------------------------------------------------
+   * ALIAS
+   * --------------------------------------------------
+   */
 
   resolve: {
+
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+
+      '@':
+        path.resolve(
+          __dirname,
+          'src'
+        ),
+
     },
+
   },
 
-  build: {
-    outDir: path.resolve(
-      __dirname,
-      '../hrms_dashboard/public/frontend'
-    ),
-    emptyOutDir: true,
-    target: 'es2015',
-    cssCodeSplit: true,
-    minify: 'esbuild',
-    sourcemap: false,
-  },
+
+  /*
+   * --------------------------------------------------
+   * BUILD
+   * --------------------------------------------------
+   */
+
+ build: {
+  outDir: path.resolve(
+    __dirname,
+    '../hrms_dashboard/public/frontend'
+  ),
+
+  emptyOutDir: true,
+
+  target: 'es2015',
+
+  cssCodeSplit: false,
+
+  minify: 'esbuild',
+
+  sourcemap: false,
+
+  rollupOptions: {
+    output: {
+      format: 'iife',
+
+      name: 'HRMSDashboard',
+
+      inlineDynamicImports: true,
+
+      entryFileNames: 'index.js',
+
+      assetFileNames: (assetInfo) => {
+
+        if (
+          assetInfo.name &&
+          assetInfo.name.endsWith('.css')
+        ) {
+          return 'index.css'
+        }
+
+        return 'assets/[name][extname]'
+      }
+    }
+  }
+},
+
+
+  /*
+   * --------------------------------------------------
+   * DEPENDENCIES
+   * --------------------------------------------------
+   */
 
   optimizeDeps: {
+
     include: [
+
       'frappe-ui > feather-icons',
+
       'showdown',
+
       'engine.io-client',
+
       'debug',
+
     ],
+
     esbuildOptions: {
+
       target: 'esnext',
+
     },
+
   },
+
 })

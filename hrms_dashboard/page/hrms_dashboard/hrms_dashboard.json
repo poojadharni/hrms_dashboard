@@ -1,0 +1,9 @@
+{
+  "doctype": "Page",
+  "name": "hrms_dashboard",
+  "page_name": "hrms_dashboard",
+  "title": "HRMS Dashboard",
+  "module": "HRMS Dashboard",
+  "standard": "Yes",
+  "system_page": 0
+}
